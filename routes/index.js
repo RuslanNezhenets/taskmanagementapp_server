@@ -1,0 +1,23 @@
+const Router = require('express')
+const router = new Router()
+const userRoutes = require('./userRoutes')
+const taskRoutes = require('./taskRoutes')
+const columnRoutes = require('./columnRoutes')
+const roleRoutes = require('./roleRoutes')
+const projectRoutes = require('./projectRoutes')
+const taskDependency = require('./taskDependencyRoutes')
+const userProject = require('./userProjectRoutes')
+const access = require('./accessRoutes')
+const matlab = require('./matlabRoutes')
+
+router.use('/user', userRoutes)
+router.use('/task', taskRoutes)
+router.use('/column', columnRoutes)
+router.use('/role', roleRoutes)
+router.use('/project', projectRoutes)
+router.use('/dependency', taskDependency)
+router.use('/userProject', userProject)
+router.use('/access', access)
+router.use('/matlab', matlab)
+
+module.exports = router
