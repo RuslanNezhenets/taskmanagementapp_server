@@ -66,7 +66,7 @@ class MatlabController {
                 }
             })
         } catch (error) {
-            console.error('Помилка під час виконання алгоритму:\n', error.message, error.body && `: ${error.body.ids.join(', ')}`)
+            console.error('Помилка під час виконання алгоритму:\n', error.message)
             res.status(400).send({message: error.message, body: error.body})
         } finally {
             isAlgorithmRunning = false

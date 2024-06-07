@@ -28,15 +28,11 @@ function [result, fixedResult, w, fitness] = main(D, t, r, const_w, lb, ub)
 
     trueConstraints = @(v)constraints(v(1:nvars), v(nvars+1:end), D, t, r, tempI);
 
-    sorted_numbers = sort(t, 'descend');
-    cumulative_sum = cumsum(sorted_numbers);
-    max_fitness = sum(cumulative_sum) + max(cumulative_sum)^2;
-    order = floor(log10(abs(max_fitness))) + 1;
-    coef = 10^order;
+    [coef1, coef2] = calculateCoefficients(t);
 
     rng("shuffle", "twister");
     [v, ~] = ga( ...
-        @(v)objective(v(1:nvars), v(nvars+1:end), coef), ...
+        @(v)objective(v(1:nvars), v(nvars+1:end), coef1, coef2), ...
         length(lb), ...
         [], [], [], [], ...
         lb, ...
@@ -52,5 +48,5 @@ function [result, fixedResult, w, fitness] = main(D, t, r, const_w, lb, ub)
     fixedResult = processing(x, w, t, trueConstraints);
 
     result = x;
-    fitness = objective(x, w, coef)
+    fitness = objective(x, w, coef1, coef2)
 end

@@ -55,6 +55,16 @@ async function generateData(projectId, useAvailable = true) {
         useAvailable ? sum_t : getDays(new Date(project.deadline).getTime()) - variables.s
     )
 
+    for (let i = 0; i < lb.length; i++) {
+        if (lb[i] > ub[i]) {
+            console.log(`Элемент ${lb[i]} в первом массиве больше элемента ${ub[i]} во втором массиве на позиции ${i}`)
+            const error = new Error('Не можливо встигнути виконати проєкт в термін.\n' +
+                'Мінімум один з ланцюжків задач не можливо встигнути виконати до кінця проєкту')
+            error.body = {type: 'other'}
+            throw error
+        }
+    }
+
     variables.lb = lb
     variables.ub = ub
 
